@@ -1,0 +1,243 @@
+PyTorch Adaptive Flow Control System - Complete Design Documentation
+=====================================================================
+
+Created: 2025-11-12
+Total Size: ~220KB
+Status: Design Phase - Ready for Review
+
+DOCUMENTATION STRUCTURE
+=======================
+
+00_EXECUTIVE_SUMMARY.md (10KB)
+  - High-level overview and value proposition
+  - Key features and benefits
+  - Performance objectives
+  - Quick start guide
+
+01_ARCHITECTURE_OVERVIEW.md (18KB)
+  - Detailed system architecture
+  - Component descriptions
+  - Design principles
+  - Integration strategy
+  - Performance objectives
+
+02_ALGORITHMS.md (45KB)
+  - Bandwidth allocation algorithms (Max-Min, Weighted, Hierarchical)
+  - Congestion control (AIMD, ECN, ML-Adaptive)
+  - Traffic shaping (Token Bucket, Leaky Bucket, HTB)
+  - Flow scheduling (SJF, WFQ, EDF, ML-Guided)
+  - Multi-path routing
+  - QoS enforcement
+
+03_ML_MODELS.md (45KB)
+  - 6 ML model architectures:
+    * Bandwidth Predictor (LSTM + Attention)
+    * Congestion Predictor (XGBoost)
+    * Routing Optimizer (GNN)
+    * Latency Predictor (MLP + Quantile Regression)
+    * Flow Size Estimator (Ensemble)
+    * Priority Predictor (MLP)
+  - Training infrastructure
+  - Online learning mechanisms
+  - Performance optimization (quantization, batching)
+
+04_COMPONENT_INTERFACES.md (18KB)
+  - FlowController API
+  - BandwidthMonitor API
+  - CongestionDetector API
+  - TrafficShaper API
+  - AdaptiveScheduler API
+  - QoSManager API
+  - Data structures and interfaces
+
+05_INTEGRATION_AND_DEPLOYMENT.md (17KB)
+  - Integration with existing runtime scheduler
+  - Hook points and implementation
+  - Phased rollout strategy (4 phases)
+  - Testing strategy (unit, integration, performance)
+  - Configuration management
+  - Monitoring and observability
+
+06_VISUAL_DIAGRAMS.md (37KB)
+  - Complete transfer flow diagram
+  - Congestion detection flow
+  - Token bucket mechanics
+  - Max-min fair allocation walkthrough
+  - ML latency prediction flow
+  - QoS lifecycle with examples
+
+README.md (17KB)
+  - Navigation guide
+  - Document overview
+  - Reading guide for different audiences
+  - FAQ and troubleshooting
+
+QUICK_REFERENCE.md (13KB)
+  - Quick lookup for common tasks
+  - API cheat sheet
+  - Algorithm summary
+  - Configuration options
+  - Performance tips
+
+DESIGN HIGHLIGHTS
+=================
+
+Core Innovation:
+  - First ML-guided flow control for deep learning frameworks
+  - Sub-millisecond ML inference for real-time decisions
+  - QoS with SLA monitoring for GPU transfers
+  - < 1% overhead, 20%+ performance improvement
+
+Key Components: (6 main + 6 ML models)
+  ✓ FlowController - Central traffic management
+  ✓ BandwidthMonitor - Real-time monitoring  
+  ✓ CongestionDetector - Proactive detection
+  ✓ TrafficShaper - Rate limiting & queuing
+  ✓ AdaptiveScheduler - Intelligent scheduling
+  ✓ QoSManager - SLA enforcement
+  ✓ PathRouter - Multi-path routing
+  ✓ 6 ML Models - Prediction & optimization
+
+Performance Targets:
+  ✓ Throughput: > 95% of hardware peak
+  ✓ P99 Latency: < 1.5x baseline
+  ✓ Fairness: Jain's Index > 0.95
+  ✓ Overhead: < 1% total
+  ✓ QoS SLA: > 99.9% compliance
+
+Algorithms Covered:
+  ✓ 3 bandwidth allocation algorithms
+  ✓ 3 congestion control mechanisms
+  ✓ 3 traffic shaping algorithms
+  ✓ 4 flow scheduling policies
+  ✓ 3 routing strategies
+  ✓ QoS admission control & enforcement
+
+ML Models:
+  ✓ Total size: < 10MB
+  ✓ Total inference: < 0.2ms
+  ✓ Online learning enabled
+  ✓ Production-ready (quantized)
+
+Integration:
+  ✓ Backward compatible (default: disabled)
+  ✓ 3 integration hook points
+  ✓ 4-phase rollout plan
+  ✓ Comprehensive testing strategy
+
+USAGE EXAMPLES
+==============
+
+Basic:
+  from torch.adaptive_flow import enable_adaptive_flow
+  controller = enable_adaptive_flow(mode='ml')
+
+With QoS:
+  with controller.qos_context(
+      qos_class=QoSClass.GUARANTEED,
+      min_bandwidth_gbps=10.0
+  ):
+      data = data.to('cuda:1')
+
+Configuration:
+  export TORCH_ADAPTIVE_FLOW_ENABLED=1
+  export TORCH_ADAPTIVE_FLOW_MODE=ml
+
+IMPLEMENTATION ROADMAP
+======================
+
+Phase 1: Monitoring (Weeks 1-2)
+  - Passive monitoring
+  - Data collection
+  - Overhead validation
+
+Phase 2: Shadow Mode (Weeks 3-4)
+  - Decision making (no apply)
+  - ML model training
+  - Performance validation
+
+Phase 3: Limited Rollout (Weeks 5-6)
+  - 10% → 50% traffic
+  - A/B testing
+  - Metrics validation
+
+Phase 4: Full Deployment (Weeks 7-8)
+  - 100% rollout
+  - Online learning
+  - Continuous monitoring
+
+SUCCESS CRITERIA
+================
+
+Must Meet:
+  ✓ Aggregate throughput > 95% of peak
+  ✓ P99 latency < 1.5x baseline
+  ✓ Fairness index > 0.95
+  ✓ Overhead < 1%
+  ✓ QoS SLA compliance > 99.9%
+  ✓ No production incidents
+  ✓ Positive user feedback
+
+NEXT STEPS
+==========
+
+1. Design Review
+   - Stakeholder review
+   - Feedback incorporation
+   - Finalize specifications
+
+2. Prototype
+   - Core components
+   - ML model training
+   - Integration hooks
+
+3. Testing
+   - Unit tests
+   - Integration tests
+   - Performance benchmarks
+
+4. Rollout
+   - Follow 4-phase plan
+   - Monitor metrics
+   - Iterate based on feedback
+
+FILES INCLUDED
+==============
+
+README.md                           - Navigation & overview
+00_EXECUTIVE_SUMMARY.md             - Executive summary
+01_ARCHITECTURE_OVERVIEW.md         - System architecture
+02_ALGORITHMS.md                    - Detailed algorithms
+03_ML_MODELS.md                     - ML model specs
+04_COMPONENT_INTERFACES.md          - API specifications
+05_INTEGRATION_AND_DEPLOYMENT.md    - Integration plan
+06_VISUAL_DIAGRAMS.md               - Visual flows
+QUICK_REFERENCE.md                  - Quick reference
+INDEX.txt                           - This file
+
+Total: 10 files, ~220KB
+
+REFERENCES
+==========
+
+Related PyTorch Components:
+  - torch/runtime_scheduler/          - Existing runtime scheduler
+  - torch/runtime_scheduler/transfer_optimizer.py
+  - torch/runtime_scheduler/stream_manager.py
+  - torch/runtime_scheduler/workload_scheduler.py
+
+Papers & Research:
+  - TIMELY (SIGCOMM'15) - Latency-based congestion control
+  - Homa (SIGCOMM'18) - Receiver-driven transport
+  - Eiffel (NSDI'19) - Software packet scheduling
+
+CONTACT
+=======
+
+Design Team: [Your team/email]
+Status: Design Phase
+Feedback: [Discussion forum/issues]
+Documentation: /home/user/pytorch/design_docs/adaptive_flow_control/
+
+Last Updated: 2025-11-12
+Version: 1.0
